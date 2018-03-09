@@ -1,0 +1,24 @@
+.tagbar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.tag {
+    height: 2.8rem;
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    padding: 0.3rem;
+}
+
+
+.tag-label:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.tag-checkbox {
+    display: none;
+}
+
+.tag-checkbox:checked + .tag-label {
+    text-decoration: underline
+}

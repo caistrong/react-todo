@@ -1,7 +1,10 @@
-import {createStore, combineReducers} from 'redux'
+import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 import {filterTypes} from './filter'
-import {todoReducer} from './todos/';
-import {filterReducer} from './filter/';
+import {statusTypes} from './weather/'
+import {todoReducer} from './todos/'
+import {filterReducer} from './filter/'
+import {weatherReducer} from './weather/';
 
 //store状态树
 const initState = {
@@ -17,14 +20,23 @@ const initState = {
             done: true
         }
     ],
-    filter: filterTypes.ALL
+    filter: filterTypes.ALL,
+    weather: {
+        status: statusTypes.LOADING,
+        info: null
+    }
 }
+
+const middlewares = [thunk]
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const enhancers = composeEnhancers(applyMiddleware(...middlewares))
 
 const reducer = combineReducers({
     todos: todoReducer,
-    filter: filterReducer
+    filter: filterReducer,
+    weather: weatherReducer
 })
 
-const store = createStore(reducer, initState)
+const store = createStore(reducer, initState, enhancers)
 
 export default store
